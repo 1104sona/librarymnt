@@ -4,7 +4,8 @@
     "author":"Anton Chekhov",
     "isbn":9780571277681,
     "publishedyear":1904,
-    "copiesavailable":6
+    "copiesavailable":6,
+    "genre":"drama"
   },
   {
     "title":"AZADI",    

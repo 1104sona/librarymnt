@@ -3,14 +3,15 @@ const Book = require('../models/book'); // Assuming you have a Book model
 // Create a new book
 exports.createBook = async (req, res) => {
     try {
-        const { title, author, isbn, publishedYear, copiesAvailable } = req.body;
+        const { title, author, isbn, publishedYear, copiesAvailable, genre } = req.body;
 
         const newBook = new Book({
             title,
             author,
             isbn,
             publishedYear,
-            copiesAvailable
+            copiesAvailable,
+            genre
         });
 
         const savedBook = await newBook.save();
@@ -23,6 +24,16 @@ exports.createBook = async (req, res) => {
 // Get all books
 exports.getAllBooks = async (req, res) => {
     try {
+        const { title, author, isbn, publishedYear, copiesAvailable, genre } = req.body;
+
+        const newBook = new Book({
+            title,
+            author,
+            isbn,
+            publishedYear,
+            copiesAvailable,
+            genre
+        });
         const books = await Book.find();
         res.status(200).json(books);
     } catch (err) {
@@ -33,6 +44,17 @@ exports.getAllBooks = async (req, res) => {
 // Get a single book by ID
 exports.getBookById = async (req, res) => {
     try {
+        const { title, author, isbn, publishedYear, copiesAvailable, genre } = req.body;
+
+        const newBook = new Book({
+            title,
+            author,
+            isbn,
+            publishedYear,
+            copiesAvailable,
+            genre
+        });
+        
         const book = await Book.findById(req.params.id);
         if (!book) return res.status(404).json({ message: 'Book not found' });
 
