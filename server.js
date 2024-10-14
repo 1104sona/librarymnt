@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bookRoutes = require('./routes/bookRoutes');
+const books = require('./routes/books');
 
 const app = express();
 const port = 3000;
@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 });
 
 // Use the book routes
-app.use('/api', bookRoutes);
+app.use('/api', books);
 
 // Connect to MongoDB and start the server
 mongoose.connect('mongodb://127.0.0.1:27017/library')
