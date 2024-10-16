@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the schema for a Book
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -9,24 +10,19 @@ const bookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    isbn: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    publishedYear: {
-        type: Number,
-        required: true // Required field
-    },
-    copiesAvailable: {
-        type: Number,
-        required: true // Required field
-    },
     genre: {
-        type: String
+        type: String,
+    },
+    year: {
+        type: Number,
+    },
+    available: {
+        type: Boolean,
+        default: true
     }
 });
 
+// Create a Book model
 const Book = mongoose.model('Book', bookSchema);
 
 module.exports = Book;
