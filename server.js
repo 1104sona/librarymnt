@@ -11,7 +11,7 @@ app.use(bodyParser.json()); // For parsing application/json
 app.use(cors()); // Enable CORS
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost/library', {
+mongoose.connect('mongodb://localhost:3000/library', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
