@@ -37,7 +37,21 @@ const Navbar = () => {
           Book Management Project
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-
+        <Button
+            color="primary"
+            component={RouterLink}
+            to="/"
+            startIcon={<HomeIcon />}
+          >
+            Home
+        </Button>
+        <Button
+            color="primary"
+            onClick={handleNotesClick}
+            startIcon={<MenuBookIcon />} // Added icon here
+          >
+            Notes
+          </Button>
 
 
         </Box>
