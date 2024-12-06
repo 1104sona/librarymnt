@@ -1,82 +1,83 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const BookForm = () => {
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [genre, setGenre] = useState('');
-    const [year, setYear] = useState('');
+const BookForm = ({ onAddBook }) => {
+  // State to hold the form input values
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [genre, setGenre] = useState('');
+  const [year, setYear] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  // Handler for submitting the form
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        // Create a new book object
-        const newBook = {
-            title,
-            author,
-            genre,
-            year,
-        };
-
-        // Send the data to the backend API
-        axios.post('http://localhost:3000/api/books', newBook)
-            .then((response) => {
-                console.log('Book added:', response.data);
-                // Clear form fields after successful submission
-                setTitle('');
-                setAuthor('');
-                setGenre('');
-                setYear('');
-            })
-            .catch((error) => {
-                console.error('There was an error adding the book!', error);
-            });
+    // Create a new book object
+    const newBook = {
+      title,
+      author,
+      genre,
+      year
     };
 
-    return (
-        <div>
-            <h2>Add a New Book</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Author</label>
-                    <input
-                        type="text"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Genre</label>
-                    <input
-                        type="text"
-                        value={genre}
-                        onChange={(e) => setGenre(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Year</label>
-                    <input
-                        type="number"
-                        value={year}
-                        onChange={(e) => setYear(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Add Book</button>
-            </form>
-        </div>
-    );
+    // Pass the new book to the AddBook component
+    onAddBook(newBook);
+
+    // Clear the form inputs after submission
+    setTitle('');
+    setAuthor('');
+    setGenre('');
+    setYear('');
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="book-form">
+      <div>
+        <label htmlFor="title">Book Title</label>
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="author">Author</label>
+        <input
+          type="text"
+          id="author"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="genre">Genre</label>
+        <input
+          type="text"
+          id="genre"
+          value={genre}
+          onChange={(e) => setGenre(e.target.value)}
+          required
+        />
+      </div>
+
+      <div>
+        <label htmlFor="year">Year of Publication</label>
+        <input
+          type="number"
+          id="year"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          required
+        />
+      </div>
+
+      <button type="submit">Add Book</button>
+    </form>
+  );
 };
 
 export default BookForm;
