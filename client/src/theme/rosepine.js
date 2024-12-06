@@ -1,4 +1,3 @@
-// src/theme/rosepine.js
 import { createTheme } from '@mui/material/styles';
 
 const rosePineColors = {
