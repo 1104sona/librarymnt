@@ -6,7 +6,9 @@ import {
   Typography,
   Button,
   Box,
-
+  IconButton,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import HomeIcon from '@mui/icons-material/Home';
@@ -35,25 +37,49 @@ const Navbar = () => {
           Book Management Project
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Button
+          <Button
             color="primary"
             component={RouterLink}
             to="/"
             startIcon={<HomeIcon />}
           >
             Home
-        </Button>
-        <Button
+          </Button>
+          <Button
             color="primary"
             onClick={handleNotesClick}
             startIcon={<MenuBookIcon />} // Added icon here
           >
             Notes
           </Button>
-
-
+          <Menu
+            anchorEl={notesAnchorEl}
+            open={Boolean(notesAnchorEl)}
+            onClose={handleNotesClose}
+          >
+            {notesPages.map((page) => (
+              <MenuItem 
+                key={page.path} 
+                component={RouterLink} 
+                to={page.path}
+                onClick={handleNotesClose}
+              >
+                {page.title}
+              </MenuItem>
+            ))}
+          </Menu>
+          <IconButton
+            color="primary"
+            component="a"
+            href="https://github.com/bscCohort/bkmgmt-deploy"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <GitHubIcon />
+          </IconButton>
         </Box>
-        </Toolbar>
+      </Toolbar>
     </AppBar>
   );
 };

@@ -16,7 +16,7 @@ const CreateBook = (props) => {
     published_date: '',
     publisher: '',
   });
-  const [showToast, setShowToast] = useState(false);
+  // const [showToast, setShowToast] = useState(false);
 
   const onChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
@@ -40,7 +40,7 @@ const CreateBook = (props) => {
         // Show the success alert
         toast.success('Book added successfully!', {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -52,9 +52,9 @@ const CreateBook = (props) => {
 
         // Delay the navigation slightly to allow the toast to be seen
         setTimeout(() => {
-          setShowToast(false); // Hide the toast
+          // setShowToast(false); // Hide the toast
           navigate('/'); // Navigate to homepage
-        }, 3000); // Adjust the timeout as needed
+        }, 5000); // Adjust the timeout as needed
 
       })
       .catch((err) => {
@@ -64,7 +64,7 @@ const CreateBook = (props) => {
         // Show the success alert
         toast.error('Something went wrong, try again!', {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -81,7 +81,7 @@ const CreateBook = (props) => {
       {/* <Navbar /> */}
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
