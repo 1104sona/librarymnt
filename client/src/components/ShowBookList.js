@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Typography, Container, Grid2, CircularProgress, Box } from '@mui/material';
 
-import BookCard from './BookCard';
+//import BookCard from './BookCard';
 
 function ShowBookList() {
   const [books, setBooks] = useState([]);
@@ -54,7 +54,7 @@ function ShowBookList() {
           ) : (
             books.map((book, index) => (
               <Grid2 item xs={12} sm={6} md={4} key={index}>
-                <BookCard book={book} />
+                {/* <BookCard book={book} /> */}
               </Grid2>
             ))
           )}

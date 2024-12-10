@@ -1,20 +1,89 @@
 const express = require('express');
 const router = express.Router();
-const bookController = require('../controllers/bookController');
+const Book = require('../../models/Book');
 
-// Route to add a new book
-router.post('/books', bookController.addBook);
+// GET /api/books
+router.get('/', async (req, res) => {
+  try {
+    const books = await Book.find();
+    if (books.length === 0) {
+      return res.status(404).json({ error: 'No books found' });
+    }
+    res.json(books);
+  } catch (err) {
+    console.error('Error retrieving books:', err);
+    res.status(500).json({ error: 'Failed to retrieve books' });
+  }
+});
 
-// Route to get all books
-router.get('/books', bookController.getBooks);
+// GET /api/books/:id
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const book = await Book.findById(id);
+    if (!book) {
+      return res.status(404).json({ error: `Book with ID ${id} not found` });
+    }
+    res.json(book);
+  } catch (err) {
+    console.error(`Error retrieving book with ID ${id}:`, err);
+    res.status(500).json({ error: 'Failed to retrieve book' });
+  }
+});
 
-// Route to get a book by ID
-router.get('/books/:id', bookController.getBookById);
+// POST /api/books
+router.post('/', async (req, res) => {
+  const { title, author, genre, year } = req.body;
 
-// Route to update a book by ID
-router.put('/books/:id', bookController.updateBook);
+  // Basic validation for required fields
+  if (!title || !author || !genre || !year) {
+    return res.status(400).json({ error: 'All fields (title, author, genre, year) are required' });
+  }
 
-// Route to delete a book by ID
-router.delete('/books/:id', bookController.deleteBook);
+  try {
+    const newBook = await Book.create(req.body);
+    res.status(201).json(newBook);
+  } catch (err) {
+    console.error('Error adding new book:', err);
+    res.status(500).json({ error: 'Failed to add book' });
+  }
+});
+
+// PUT /api/books/:id
+router.put('/:id', async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+
+  // Optional: Basic validation for fields to update
+  if (Object.keys(updateData).length === 0) {
+    return res.status(400).json({ error: 'No data provided to update' });
+  }
+
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(id, updateData, { new: true });
+    if (!updatedBook) {
+      return res.status(404).json({ error: `Book with ID ${id} not found` });
+    }
+    res.json(updatedBook);
+  } catch (err) {
+    console.error(`Error updating book with ID ${id}:`, err);
+    res.status(500).json({ error: 'Failed to update book' });
+  }
+});
+
+// DELETE /api/books/:id
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedBook = await Book.findByIdAndRemove(id);
+    if (!deletedBook) {
+      return res.status(404).json({ error: `Book with ID ${id} not found` });
+    }
+    res.json({ message: 'Book deleted successfully' });
+  } catch (err) {
+    console.error(`Error deleting book with ID ${id}:`, err);
+    res.status(500).json({ error: 'Failed to delete book' });
+  }
+});
 
 module.exports = router;

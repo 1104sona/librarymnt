@@ -14,10 +14,10 @@ const Footer = () => (
     }}
   >
     <Typography variant="h6" gutterBottom>
-      Built with Sonali Panda
+      Built with ❤️ by Sonali Panda
     </Typography>
     <Typography variant="body2" sx={{ mt: 2 }}>
-      © {new Date().getFullYear()} 1104sona | All Rights Reserved
+      © {new Date().getFullYear()} Bsc Cohort | All Rights Reserved
     </Typography>
   </Box>
 );
