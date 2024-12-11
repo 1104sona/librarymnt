@@ -12,10 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@emotion/react": "^11.13.5",
-    "@emotion/styled": "^11.13.5",
-    "@mui/system": "^6.1.9",
-    "axios": "^1.7.9",
     "body-parser": "^1.20.3",
     "config": "^3.3.9",
     "cors": "^2.8.5",
