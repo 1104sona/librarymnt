@@ -1,194 +1,261 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { 
+  Box, 
+  TextField, 
+  Typography,                 
+  Button, 
+  Snackbar, 
+  Alert 
+} from '@mui/material';
 import axios from 'axios';
 
-const CreateBook = (props) => {
+const CreateBook = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState({
-    title: '',
-    isbn: '',
-    author: '',
+    name: '',
+    maxcount: '',
+    phonenumber: '',
+    rentperday: '',
+    type: '',
     description: '',
-    published_date: '',
-    publisher: '',
+    location: '',
+    features: '',
   });
-  // const [showToast, setShowToast] = useState(false);
 
-  const onChange = (e) => {
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: '',
+  });
+
+  const handleChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Book data before submit:', book); // Debugging line
 
-    axios
-      .post('/api/bookRoutes', book)
-      .then((res) => {
-        setBook({
-          title: '',
-          isbn: '',
-          author: '',
-          description: '',
-          published_date: '',
-          publisher: '',
-        });
+    // Ensure correct data types
+    const parsedBook = {
+      ...book,
+      maxcount: Number(book.maxcount),        // Parse maxcount to number
+      rentperday: Number(book.rentperday),    // Parse rentperday to number
+      features: book.features.split(',').map(item => item.trim()),  // Convert features to array
+    };
 
-        // Show the success alert
-        toast.success('Book added successfully!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
+    try {
+      const response = await axios.post('http://localhost:5000/books', parsedBook);
+      console.log('Response from server:', response.data); // Debugging response
 
-        // Delay the navigation slightly to allow the toast to be seen
-        setTimeout(() => {
-          // setShowToast(false); // Hide the toast
-          navigate('/'); // Navigate to homepage
-        }, 5000); // Adjust the timeout as needed
-
-      })
-      .catch((err) => {
-        console.log('Error in CreateBook!');
-        console.log('The error is -> ')
-        console.log(err)
-        // Show the success alert
-        toast.error('Something went wrong, try again!', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          transition: Slide,
-        });
+      setNotification({
+        open: true,
+        message: 'Book created successfully!',
+        severity: 'success',
       });
+
+      // Reset the form
+      setBook({
+        name: '',
+        maxcount: '',
+        phonenumber: '',
+        rentperday: '',
+        type: '',
+        description: '',
+        location: '',
+        features: '',
+      });
+
+      setTimeout(() => navigate('/'), 1500);
+    } catch (error) {
+      console.error('Error creating book:', error);
+      const errorMessage = error.response?.data?.message || 'Failed to create book. Please try again.';
+
+      setNotification({
+        open: true,
+        message: errorMessage,
+        severity: 'error',
+      });
+    }
+  };
+
+  const handleCancel = () => {
+    navigate('/');
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
   };
 
   return (
-    <div className='CreateBook'>
-      {/* <Navbar /> */}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Slide}
-      />
+    <Box
+      sx={{
+        maxWidth: 600,
+        margin: 'auto',
+        padding: 4,
+        borderRadius: 2,
+        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+        backgroundColor: '#1c1c1c', // Dark background for the form
+      }}
+    >
+      <Typography 
+        variant="h4" 
+        component="h1" 
+        textAlign="center" 
+        mb={3}
+        color="primary"
+        fontWeight={700}
+      >
+        Create a New book
+      </Typography>
+      
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="Book Name"
+          name="name"
+          variant="outlined"
+          value={book.name}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          Patterns={{
+            style: { color: '#93a1a1' }, // Lighter label color for readability
+          }}
+          Pattern={{
+            style: { color: '#fdf6e3' }, // Light text color
+          }}
+        />
+        <TextField
+          fullWidth
+          label="ISBN"
+          name="isbn"
+          variant="outlined"
+          value={book.isbn}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          Pattern={{
+            style: { color: '#93a1a1' },
+          }}
+          Patterns ={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Author"
+          name="author"
+          variant="outlined"
+          value={book.author}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          Patterns={{
+            style: { color: '#93a1a1' },
+          }}
+          Pattern={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Describe This Book"
+          name="describethebook"
+          variant="outlined"
+          value={book.describethebook}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          Patterns={{
+            style: { color: '#93a1a1' },
+          }}
+          Pattern={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="mm/dd/yy"
+          name="mm/dd/yy"
+          variant="outlined"
+          value={book.date}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          Patterns={{
+            style: { color: '#93a1a1' },
+          }}
+          Pattern={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        <TextField
+          fullWidth
+          label="Publisher"
+          name="publisher"
+          variant="outlined"
+          value={book.publisher}
+          onChange={handleChange}
+          required
+          sx={{ mb: 2 }}
+          Patterns={{
+            style: { color: '#93a1a1' },
+          }}
+          Pattern={{
+            style: { color: '#fdf6e3' },
+          }}
+        />
+        
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            mt: 3,
+          }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{
+              width: '48%',
+              fontWeight: 'bold',
+              borderRadius: '12px', // Rounded button
+            }}
+          >
+            Create Book
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleCancel}
+            sx={{
+              width: '48%',
+              fontWeight: 'bold',
+              borderRadius: '12px',
+            }}
+          >
+            Cancel
+          </Button>
+        </Box>
+      </form>
 
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show BooK List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Book</h1>
-            <p className='lead text-center'>Create new book</p>
-
-            <form noValidate onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Title of the Book'
-                  name='title'
-                  className='form-control'
-                  value={book.title}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='ISBN'
-                  name='isbn'
-                  className='form-control'
-                  value={book.isbn}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Author'
-                  name='author'
-                  className='form-control'
-                  value={book.author}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Describe this book'
-                  name='description'
-                  className='form-control'
-                  value={book.description}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='date'
-                  placeholder='published_date'
-                  name='published_date'
-                  className='form-control'
-                  value={book.published_date}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Publisher of this Book'
-                  name='publisher'
-                  className='form-control'
-                  value={book.publisher}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <input
-                type='submit'
-                className='btn btn-outline-warning btn-block mt-4'
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
+      <Snackbar
+        open={notification.open}
+        autoHideDuration={3000}
+        onClose={handleCloseNotification}
+      >
+        <Alert
+          onClose={handleCloseNotification}
+          severity={notification.severity}
+          sx={{ width: '100%' }}
+        >
+          {notification.message}
+        </Alert>
+      </Snackbar>
+    </Box>
   );
 };
 
