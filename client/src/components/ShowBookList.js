@@ -11,13 +11,13 @@ function ShowBookList() {
 
   useEffect(() => {
     axios
-      .get(`/api/books`)
+      .get(`/api`)
       .then((res) => {
         setBooks(res.data);
         setLoading(false); // Set loading to false once data is fetched
       })
       .catch((err) => {
-        console.log('Error from ShowBookList ->', err);
+        // console.log('Error from ShowBookList ->', err);
         setLoading(false); // Set loading to false even on error
       });
   }, []);

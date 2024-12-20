@@ -14,13 +14,11 @@ const CreateBook = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState({
     name: '',
-    maxcount: '',
-    phonenumber: '',
-    rentperday: '',
-    type: '',
-    description: '',
-    location: '',
-    features: '',
+    isbn: '',
+    author: '',
+    describethisbook: '',
+    date: '',
+    publisher: ''
   });
 
   const [notification, setNotification] = useState({
@@ -40,13 +38,14 @@ const CreateBook = () => {
     // Ensure correct data types
     const parsedBook = {
       ...book,
-      maxcount: Number(book.maxcount),        // Parse maxcount to number
-      rentperday: Number(book.rentperday),    // Parse rentperday to number
-      features: book.features.split(',').map(item => item.trim()),  // Convert features to array
-    };
+      isbn: Number(book.isbn),        // Parse isbn to number
+      describethisbook: Number(book.describethisbook),    // Parse rentperday to number
+      features: book.features && book.features.trim() !== '' ? book.features.split(',').map(item => item.trim()) : [], // Default to an empty array if features is empty or undefined
+  };
+
 
     try {
-      const response = await axios.post('http://localhost:5000/books', parsedBook);
+      const response = await axios.post('http://https://5000-1104sona-librarymnt-1pklkcovc5y.ws-us117.gitpod.io:5000/api/books', parsedBook);
       console.log('Response from server:', response.data); // Debugging response
 
       setNotification({
@@ -58,13 +57,11 @@ const CreateBook = () => {
       // Reset the form
       setBook({
         name: '',
-        maxcount: '',
-        phonenumber: '',
-        rentperday: '',
-        type: '',
-        description: '',
-        location: '',
-        features: '',
+        isbn: '',
+        author: '',
+        describethisbook: '',
+        date: '',
+        publisher: ''
       });
 
       setTimeout(() => navigate('/'), 1500);
@@ -177,8 +174,8 @@ const CreateBook = () => {
         />
         <TextField
           fullWidth
-          label="mm/dd/yy"
-          name="mm/dd/yy"
+          label="date"
+          name="date"
           variant="outlined"
           value={book.date}
           onChange={handleChange}

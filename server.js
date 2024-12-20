@@ -16,7 +16,7 @@ const app = express()
 // HANDLE MIDDLEWARE
 app.use(express.json());
 app.use(cors());
-app.use("/api/books", books)
+app.use("/api", books)
 
 
 // SERVE STATIC FILES
