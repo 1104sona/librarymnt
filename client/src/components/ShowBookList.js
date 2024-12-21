@@ -1,9 +1,78 @@
+// import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom';
+// import axios from 'axios';
+// import { Button, Typography, Container, Grid2, CircularProgress, Box } from '@mui/material';
+
+// // import BookCard from './BookCard';
+
+// function ShowBookList() {
+//   const [books, setBooks] = useState([]); // Initialize books as an empty array
+//   const [loading, setLoading] = useState(true); // Loading state
+
+//   useEffect(() => {
+//     axios
+//       .get(`/books`)
+//       .then((res) => {
+//         // Ensure that res.data is an array
+//         const books = Array.isArray(res.data) ? res.data : [];
+//         setBooks(books);
+//         setLoading(false); // Set loading to false once data is fetched
+//       })
+//       .catch((err) => {
+//         console.log('Error from ShowBookList ->', err);
+//         setLoading(false); // Set loading to false even on error
+//       });
+//   }, []);
+
+//   return (
+//     <Container maxWidth="lg" sx={{ py: 4 }}>
+//       <Typography variant="h3" component="h1" color="primary" gutterBottom>
+//         Books List
+//       </Typography>
+
+//       <Button
+//         component={Link}
+//         to="/create-book"
+//         color="primary"
+//         variant="contained"
+//         sx={{ mb: 4 }}
+//       >
+//         Add New Book
+//       </Button>
+
+//       {loading ? (
+//         // Show a loading spinner while data is being fetched
+//         <Box display="flex" justifyContent="center" mt={4}>
+//           <CircularProgress />
+//         </Box>
+//       ) : (
+//         <Grid2 container spacing={3}>
+          
+//            (
+//             <Grid2 item xs={12}>
+//               <Typography variant="h6" color="text.secondary">
+//                 No books found!
+//               </Typography>
+//             </Grid2>
+//            ) : 
+          
+           
+//         </Grid2>
+//       )}
+//     </Container>
+//   );
+// }
+
+// export default ShowBookList;
+
+
+// src/components/ShowBookList.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Typography, Container, Grid2, CircularProgress, Box } from '@mui/material';
+import { Button, Typography, Container, Grid, CircularProgress, Box } from '@mui/material';
 
-//import BookCard from './BookCard';
+ import BookCard from './BookCard';
 
 function ShowBookList() {
   const [books, setBooks] = useState([]);
@@ -11,13 +80,13 @@ function ShowBookList() {
 
   useEffect(() => {
     axios
-      .get(`/api`)
+      .get(`/api/books`)
       .then((res) => {
         setBooks(res.data);
         setLoading(false); // Set loading to false once data is fetched
       })
       .catch((err) => {
-        // console.log('Error from ShowBookList ->', err);
+        console.log('Error from ShowBookList ->', err);
         setLoading(false); // Set loading to false even on error
       });
   }, []);
@@ -44,21 +113,21 @@ function ShowBookList() {
           <CircularProgress />
         </Box>
       ) : (
-        <Grid2 container spacing={3}>
+        <Grid container spacing={3}>
           {books.length === 0 ? (
-            <Grid2 item xs={12}>
+            <Grid item xs={12}>
               <Typography variant="h6" color="text.secondary">
                 No books found!
               </Typography>
-            </Grid2>
+            </Grid>
           ) : (
             books.map((book, index) => (
-              <Grid2 item xs={12} sm={6} md={4} key={index}>
-                {/* <BookCard book={book} /> */}
-              </Grid2>
+              <Grid item xs={12} sm={6} md={4} key={index}>
+                <BookCard book={book} />
+              </Grid>
             ))
           )}
-        </Grid2>
+        </Grid>
       )}
     </Container>
   );

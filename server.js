@@ -1,7 +1,7 @@
 const express = require("express")
 const connectDB = require("./config/db")
 const cors = require("cors")
-const books = require("./routes/books")
+const books = require("./routes/api/books")
 const path = require('path');
 require("dotenv").config( { path: "./config.env" } )
 
@@ -16,8 +16,12 @@ const app = express()
 // HANDLE MIDDLEWARE
 app.use(express.json());
 app.use(cors());
-app.use("/api", books)
+app.use("/api/books", books)
 
+
+app.get("/home", (req, res) => {
+    res.send("HomePage");
+})
 
 // SERVE STATIC FILES
 app.use(express.static(path.join(__dirname, "./client/build")));
@@ -32,5 +36,5 @@ app.get("*", function (_, res) {
 
 
 // START SERVER
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Express server running on port ${port}`));

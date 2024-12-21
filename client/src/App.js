@@ -9,8 +9,9 @@ import Footer from './components/Footer';
 import CreateBook from './components/CreateBook';
 import ShowBookList from './components/ShowBookList';
 import ShowBookDetails from './components/ShowBookDetails';
-// import UpdateBookInfo from './components/UpdateBookInfo';
+import UpdateBookInfo from './components/UpdateBookInfo';
 import HomePage from './components/HomePage';
+import ExportPage from './components/ExportPage';
 // import NotesPage from './components/NotesPage'; // Import NotesPage component
 
 const App = () => {
@@ -25,8 +26,9 @@ const App = () => {
               <Route exact path='/' element={<HomePage />} />
               <Route path='/book-list' element={<ShowBookList />} />
               <Route path='/create-book' element={<CreateBook />} />
-              {/* <Route path='/edit-book/:id' element={<UpdateBookInfo />} /> */}
+              <Route path='/edit-book/:id' element={<UpdateBookInfo />} />
               <Route path='/show-book/:id' element={<ShowBookDetails />} />
+              <Route path="/export" element={<ExportPage />} />
               {/* <Route path='/notes/*' element={<NotesPage />} /> */}
             </Routes>
           </Box>
