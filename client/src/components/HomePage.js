@@ -23,7 +23,7 @@ const HomePage = () => {
           fontFamily: `'Playfair Display', serif`, // Classic font
         }}
       >
-        Welcome to the Book Management System
+        Welcome to the Library Management System
       </Typography>
       <Typography
         variant="h5"
