@@ -85,7 +85,8 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Button
-              component={Link}
+              component= "a"
+              href='https://github.com/1104sona/librarymnt'
               to="/github-icon"
               color="primary"
               size="large"
