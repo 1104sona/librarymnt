@@ -80,7 +80,7 @@ function ShowBookList() {
 
   useEffect(() => {
     axios
-      .get(`https://5000-1104sona-librarymnt-32rxafejknq.ws-us117.gitpod.io/api/books`)
+      .get(`https://library-management-h6hw.onrender.com/api/books`)
       .then((res) => {
         setBooks(res.data);
         setLoading(false); // Set loading to false once data is fetched

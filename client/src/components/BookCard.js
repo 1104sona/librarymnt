@@ -19,7 +19,7 @@ const BookCard = ({ book }) => {
       }}
     >
       <img
-        src='https://images.unsplash.com/photo-1495446815901-a7297e633e8d'
+        src='https://images.unsplash.com/photo-1521587760476-6c12a4b040da?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D'
         alt='Books'
         style={{ height: 200, objectFit: 'cover', width: '100%' }}
       />
