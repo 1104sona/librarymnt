@@ -72,7 +72,7 @@ const ShowBookDetails = () => {
               <CardMedia
                 component="img"
                 height="300"
-                image="https://images.unsplash.com/photo-1495446815901-a7297e633e8d"
+                image="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGlicmFyeXxlbnwwfHwwfHx8MA%3D%3D"
                 alt={book.title}
               />
             </Card>

@@ -37,21 +37,21 @@ const Navbar = () => {
           Library Management System Project
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Button
+          {/* <Button
             color="primary"
             component={RouterLink}
             to="/"
             startIcon={<HomeIcon />}
           >
             Home
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
             color="primary"
             onClick={handleNotesClick}
             startIcon={<MenuBookIcon />} // Added icon here
           >
             Notes
-          </Button>
+          </Button> */}
           <Menu
             anchorEl={notesAnchorEl}
             open={Boolean(notesAnchorEl)}
@@ -71,7 +71,7 @@ const Navbar = () => {
           <IconButton
             color="primary"
             component="a"
-            href="https://github.com/bscCohort/bkmgmt-deploy"
+            href="https://github.com/1104sona/librarymnt"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

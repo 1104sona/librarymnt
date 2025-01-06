@@ -62,8 +62,9 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Button
-              component={Link}
-              to="/download-book"
+              component= "a"
+              href='https://docs.google.com/document/d/1ieXROySP4bB7bl0Wr0whB3P3Kzgb4F73k8W3vmxdGbs/edit?tab=t.0'
+              to="/documentation"
               color="primary"
               size="large"
               fullWidth
@@ -80,7 +81,7 @@ const HomePage = () => {
                 },
               }}
             >
-              Download Book-list
+              Documentation
             </Button>
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
