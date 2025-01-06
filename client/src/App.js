@@ -13,6 +13,8 @@ import UpdateBookInfo from './components/UpdateBookInfo';
 import HomePage from './components/HomePage';
 import ExportPage from './components/ExportPage';
 // import NotesPage from './components/NotesPage'; // Import NotesPage component
+import SearchBooks from './components/SearchBooks';
+import QRCodePage from './components/QRCodePage';
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
               <Route path='/show-book/:id' element={<ShowBookDetails />} />
               <Route path="/export" element={<ExportPage />} />
               {/* <Route path='/notes/*' element={<NotesPage />} /> */}
+              <Route path="/search" element={<SearchBooks />} />
+              <Route path="/qr-codes" element={<QRCodePage />} />
             </Routes>
           </Box>
           <Footer />

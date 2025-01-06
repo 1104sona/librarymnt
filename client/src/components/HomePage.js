@@ -63,7 +63,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component={Link}
-              to="/book-export"
+              to="/download-book"
               color="primary"
               size="large"
               fullWidth
@@ -128,6 +128,76 @@ const HomePage = () => {
               }}
             >
               RESUME
+            </Button>
+          </Grid>
+         
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/search"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+             Search Books 
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/qr-codes"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+             QR Codes
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/export"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+              Export Data
             </Button>
           </Grid>
         </Grid>
