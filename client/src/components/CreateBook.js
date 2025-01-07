@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Container, TextField, Typography, Button, Box, Grid, Paper } from '@mui/material';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import axios from 'axios';
 
-const CreateBook = (props) => {
+const CreateBook = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState({
     title: '',
@@ -16,7 +15,6 @@ const CreateBook = (props) => {
     published_date: '',
     publisher: '',
   });
-  // const [showToast, setShowToast] = useState(false);
 
   const onChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
@@ -37,39 +35,27 @@ const CreateBook = (props) => {
           publisher: '',
         });
 
-        // Show the success alert
         toast.success('Book added successfully!', {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
           theme: "dark",
           transition: Slide,
         });
 
-        // Delay the navigation slightly to allow the toast to be seen
-        setTimeout(() => {
-          // setShowToast(false); // Hide the toast
-          navigate('/'); // Navigate to homepage
-        }, 5000); // Adjust the timeout as needed
-
+        setTimeout(() => navigate('/'), 3000);
       })
       .catch((err) => {
-        console.log('Error in CreateBook!');
-        console.log('The error is -> ')
-        console.log(err)
-        // Show the success alert
-        toast.error('Something went wrong, try again!', {
+        toast.error('Failed to add the book. Please try again.', {
           position: "top-right",
-          autoClose: 5000,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
           theme: "dark",
           transition: Slide,
         });
@@ -77,11 +63,115 @@ const CreateBook = (props) => {
   };
 
   return (
-    <div className='CreateBook'>
-      {/* <Navbar /> */}
+    <Container
+      maxWidth="md"
+      sx={{
+        py: 5,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: '#121212', // Dark background
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          padding: 5,
+          borderRadius: '16px',
+          backgroundColor: '#1e1e1e', // Slightly lighter gray for contrast
+          color: '#e0e0e0', // Light gray text
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            textAlign: 'center',
+            mb: 2,
+            fontWeight: 'bold',
+            color: '#f5f5f5', // Soft white for headings
+            fontFamily: `'Roboto Slab', serif`,
+          }}
+        >
+          Add a New Book
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            textAlign: 'center',
+            mb: 3,
+            color: '#bdbdbd', // Subtle gray for subtitles
+          }}
+        >
+          Fill in the details below to add a book to the library.
+        </Typography>
+        <form onSubmit={onSubmit}>
+          <Grid container spacing={3}>
+            {[
+              { name: 'title', label: 'Title of the Book', type: 'text' },
+              { name: 'isbn', label: 'ISBN', type: 'text' },
+              { name: 'author', label: 'Author', type: 'text' },
+              { name: 'description', label: 'Description', type: 'text' },
+              { name: 'published_date', label: 'Published Date', type: 'date' },
+              { name: 'publisher', label: 'Publisher', type: 'text' },
+            ].map((field) => (
+              <Grid item xs={12} sm={6} key={field.name}>
+                <TextField
+                  fullWidth
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                  value={book[field.name]}
+                  onChange={onChange}
+                  variant="outlined"
+                  InputLabelProps={field.type === 'date' ? { shrink: true } : {}}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '8px',
+                      backgroundColor: '#2c2c2c', // Dark input field
+                      color: '#e0e0e0',
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: '#9e9e9e', // Muted label color
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#616161', // Muted border
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#757575', // Slightly lighter on hover
+                    },
+                  }}
+                />
+              </Grid>
+            ))}
+
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                size="large"
+                variant="contained"
+                sx={{
+                  background: 'linear-gradient(90deg, #424242, #616161)', // Gray gradient
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  py: 1.5,
+                  borderRadius: '8px',
+                  textTransform: 'none',
+                  '&:hover': {
+                    background: 'linear-gradient(90deg, #616161, #757575)', // Lighter gray hover
+                  },
+                }}
+              >
+                Add Book
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -89,106 +179,10 @@ const CreateBook = (props) => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
         transition={Slide}
       />
-
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show BooK List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Add Book</h1>
-            <p className='lead text-center'>Create new book</p>
-
-            <form noValidate onSubmit={onSubmit}>
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Title of the Book'
-                  name='title'
-                  className='form-control'
-                  value={book.title}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='ISBN'
-                  name='isbn'
-                  className='form-control'
-                  value={book.isbn}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Author'
-                  name='author'
-                  className='form-control'
-                  value={book.author}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Describe this book'
-                  name='description'
-                  className='form-control'
-                  value={book.description}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='date'
-                  placeholder='published_date'
-                  name='published_date'
-                  className='form-control'
-                  value={book.published_date}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <div className='form-group'>
-                <input
-                  type='text'
-                  placeholder='Publisher of this Book'
-                  name='publisher'
-                  className='form-control'
-                  value={book.publisher}
-                  onChange={onChange}
-                />
-              </div>
-              <br />
-
-              <input
-                type='submit'
-                className='btn btn-outline-warning btn-block mt-4'
-              />
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
+    </Container>
   );
 };
 

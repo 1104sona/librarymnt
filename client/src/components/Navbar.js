@@ -11,8 +11,8 @@ import {
   MenuItem,
 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook'; // Added Notes icon
+//import HomeIcon from '@mui/icons-material/Home';
+//import MenuBookIcon from '@mui/icons-material/MenuBook'; // Added Notes icon
 
 const notesPages = [
   { title: 'Home', path: '/notes/home' },
@@ -22,9 +22,9 @@ const notesPages = [
 const Navbar = () => {
   const [notesAnchorEl, setNotesAnchorEl] = useState(null);
 
-  const handleNotesClick = (event) => {
-    setNotesAnchorEl(event.currentTarget);
-  };
+  // const handleNotesClick = (event) => {
+  //   setNotesAnchorEl(event.currentTarget);
+  // };
 
   const handleNotesClose = () => {
     setNotesAnchorEl(null);

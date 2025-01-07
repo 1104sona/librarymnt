@@ -16,7 +16,7 @@ import axios from 'axios';
 const QRCodePage = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const baseUrl = 'https://library-management-h6hw.onrender.com/api/books';
+  const baseUrl = 'https://library-management-h6hw.onrender.com/show-book/';
 
   useEffect(() => {
     axios.get('/api/books')
