@@ -17,10 +17,11 @@ const UpdateBookInfo = () => {
     published_date: '',
     publisher: '',
   });
+  const myURL = process.env.REACT_APP_URL;
 
   useEffect(() => {
     axios
-      .get(`https://library-management-h6hw.onrender.com/api/books/${id}`)
+      .get(`${URL}/api/books/${id}`)
       .then((res) => {
         setBook({
           title: res.data.title,
@@ -44,12 +45,13 @@ const UpdateBookInfo = () => {
   const onChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
+  const URL = process.env.REACT_APP_URL;
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .put(`https://library-management-h6hw.onrender.com/api/books/${id}`, book)
+      .put(`${URL}/api/books/${id}`, book)
       .then((res) => {
         toast.success('Book updated successfully!', {
           position: 'top-right',
@@ -71,15 +73,14 @@ const UpdateBookInfo = () => {
 
   return (
     <Container
-      maxWidth="md"
-      sx={{
-        py: 5,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#121212',
-      }}
+    maxWidth="lg"
+    sx={{
+      textAlign: 'center',
+      py: 5,
+      backgroundColor: 'background.paper', // Warm Sand color
+      borderRadius: '10px',
+      boxShadow: '0px 6px 12px rgba(105, 67, 43, 0.3)', // Warm shadow
+    }}
     >
       <Paper
         elevation={10}

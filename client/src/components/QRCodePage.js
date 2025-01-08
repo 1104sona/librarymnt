@@ -12,11 +12,12 @@ import {
 } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import axios from 'axios';
+const URL = process.env.REACT_APP_URL;
 
 const QRCodePage = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const baseUrl = 'https://library-management-h6hw.onrender.com/show-book/';
+  const baseUrl = `${URL}/show-book/`;
 
   useEffect(() => {
     axios.get('/api/books')

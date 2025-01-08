@@ -19,12 +19,13 @@ const CreateBook = () => {
   const onChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
+  const URL = process.env.REACT_APP_URL;
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     axios
-      .post('https://library-management-h6hw.onrender.com/api/books', book)
+      .post(`${URL}/api/books`, book)
       .then((res) => {
         setBook({
           title: '',
@@ -64,15 +65,14 @@ const CreateBook = () => {
 
   return (
     <Container
-      maxWidth="md"
-      sx={{
-        py: 5,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        backgroundColor: '#121212', // Dark background
-      }}
+    maxWidth="lg"
+    sx={{
+      textAlign: 'center',
+      py: 5,
+      backgroundColor: 'background.paper', // Warm Sand color
+      borderRadius: '10px',
+      boxShadow: '0px 6px 12px rgba(105, 67, 43, 0.3)', // Warm shadow
+    }}
     >
       <Paper
         elevation={10}

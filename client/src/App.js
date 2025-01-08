@@ -16,6 +16,7 @@ import ExportPage from './components/ExportPage';
 import SearchBooks from './components/SearchBooks';
 import QRCodePage from './components/QRCodePage';
 
+
 const App = () => {
   return (
     <ThemeProvider theme={rosePineTheme}>
@@ -25,6 +26,7 @@ const App = () => {
           <Navbar />
           <Box component="main" flexGrow={1} py={3}>
             <Routes>
+          
               <Route exact path='/' element={<HomePage />} />
               <Route path='/book-list' element={<ShowBookList />} />
               <Route path='/create-book' element={<CreateBook />} />

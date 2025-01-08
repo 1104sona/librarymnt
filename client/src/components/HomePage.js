@@ -87,7 +87,7 @@ const HomePage = () => {
           <Grid item xs={12} sm={6} md={4}>
             <Button
               component="a"
-              href="https://docs.google.com/document/d/1yeICuOXo53lWL12QzrbZeTWO90BPCPmLdb3HVUaDbec/edit?tab=t.0"
+              href="https://drive.google.com/file/d/1g4sCAGCihn7bHQN-SicyUKA5zQj7rYQo/view?usp=sharing"
               color="primary"
               size="large"
               fullWidth
