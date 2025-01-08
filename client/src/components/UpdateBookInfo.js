@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, TextField, Typography, Button, Grid, Paper } from '@mui/material';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-function UpdateBookInfo(props) {
+const UpdateBookInfo = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [book, setBook] = useState({
     title: '',
     isbn: '',
@@ -12,12 +18,9 @@ function UpdateBookInfo(props) {
     publisher: '',
   });
 
-  const { id } = useParams();
-  const navigate = useNavigate();
-
   useEffect(() => {
     axios
-      .get(`/api/books/${id}`)
+      .get(`https://library-management-h6hw.onrender.com/api/books/${id}`)
       .then((res) => {
         setBook({
           title: res.data.title,
@@ -29,8 +32,12 @@ function UpdateBookInfo(props) {
         });
       })
       .catch((err) => {
-        console.log('Error from UpdateBookInfo GET request');
-        console.log(err)
+        toast.error('Failed to fetch book details. Please try again.', {
+          position: 'top-right',
+          autoClose: 3000,
+          theme: 'dark',
+          transition: Slide,
+        });
       });
   }, [id]);
 
@@ -41,136 +48,149 @@ function UpdateBookInfo(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
-      title: book.title,
-      isbn: book.isbn,
-      author: book.author,
-      description: book.description,
-      published_date: book.published_date,
-      publisher: book.publisher,
-    };
-
     axios
-      .put(`/api/books/${id}`, data)
+      .put(`https://library-management-h6hw.onrender.com/api/books/${id}`, book)
       .then((res) => {
-        navigate(`/show-book/${id}`);
+        toast.success('Book updated successfully!', {
+          position: 'top-right',
+          autoClose: 3000,
+          theme: 'dark',
+          transition: Slide,
+        });
+        setTimeout(() => navigate(`/show-book/${id}`), 3000);
       })
       .catch((err) => {
-        console.log('Error in UpdateBookInfo PUT request ->');
-        console.log(err)
+        toast.error('Failed to update the book. Please try again.', {
+          position: 'top-right',
+          autoClose: 3000,
+          theme: 'dark',
+          transition: Slide,
+        });
       });
   };
 
   return (
-    <div className='UpdateBookInfo'>
-      
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-8 m-auto'>
-            <br />
-            <Link to='/' className='btn btn-outline-warning float-left'>
-              Show BooK List
-            </Link>
-          </div>
-          <div className='col-md-8 m-auto'>
-            <h1 className='display-4 text-center'>Edit Book</h1>
-            <p className='lead text-center'>Update Book's Info</p>
-          </div>
-        </div>
+    <Container
+      maxWidth="md"
+      sx={{
+        py: 5,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        backgroundColor: '#121212',
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          padding: 5,
+          borderRadius: '16px',
+          backgroundColor: '#1e1e1e',
+          color: '#e0e0e0',
+        }}
+      >
+        <Typography
+          variant="h4"
+          sx={{
+            textAlign: 'center',
+            mb: 2,
+            fontWeight: 'bold',
+            color: '#f5f5f5',
+            fontFamily: `'Roboto Slab', serif`,
+          }}
+        >
+          Update Book Info
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            textAlign: 'center',
+            mb: 3,
+            color: '#bdbdbd',
+          }}
+        >
+          Modify the details below to update the book.
+        </Typography>
+        <form onSubmit={onSubmit}>
+          <Grid container spacing={3}>
+            {[
+              { name: 'title', label: 'Title of the Book', type: 'text' },
+              { name: 'isbn', label: 'ISBN', type: 'text' },
+              { name: 'author', label: 'Author', type: 'text' },
+              { name: 'description', label: 'Description', type: 'text' },
+              { name: 'published_date', label: 'Published Date', type: 'date' },
+              { name: 'publisher', label: 'Publisher', type: 'text' },
+            ].map((field) => (
+              <Grid item xs={12} sm={6} key={field.name}>
+                <TextField
+                  fullWidth
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                  value={book[field.name]}
+                  onChange={onChange}
+                  variant="outlined"
+                  InputLabelProps={field.type === 'date' ? { shrink: true } : {}}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '8px',
+                      backgroundColor: '#2c2c2c',
+                      color: '#e0e0e0',
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: '#9e9e9e',
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#616161',
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: '#757575',
+                    },
+                  }}
+                />
+              </Grid>
+            ))}
 
-        <div className='col-md-8 m-auto'>
-          <form noValidate onSubmit={onSubmit}>
-            <div className='form-group'>
-              <label htmlFor='title'>Title</label>
-              <input
-                type='text'
-                placeholder='Title of the Book'
-                name='title'
-                className='form-control'
-                value={book.title}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='isbn'>ISBN</label>
-              <input
-                type='text'
-                placeholder='ISBN'
-                name='isbn'
-                className='form-control'
-                value={book.isbn}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='author'>Author</label>
-              <input
-                type='text'
-                placeholder='Author'
-                name='author'
-                className='form-control'
-                value={book.author}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='description'>Description</label>
-              <textarea
-                type='text'
-                placeholder='Description of the Book'
-                name='description'
-                className='form-control'
-                value={book.description}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='published_date'>Published Date</label>
-              <input
-                type='text'
-                placeholder='Published Date'
-                name='published_date'
-                className='form-control'
-                value={book.published_date}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <div className='form-group'>
-              <label htmlFor='publisher'>Publisher</label>
-              <input
-                type='text'
-                placeholder='Publisher of the Book'
-                name='publisher'
-                className='form-control'
-                value={book.publisher}
-                onChange={onChange}
-              />
-            </div>
-            <br />
-
-            <button
-              type='submit'
-              className='btn btn-outline-info btn-lg btn-block'
-            >
-              Update Book
-            </button>
-            <br /> <br />
-          </form>
-        </div>
-      </div>
-
-    </div>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                fullWidth
+                size="large"
+                variant="contained"
+                sx={{
+                  background: 'linear-gradient(90deg, #424242, #616161)',
+                  color: '#fff',
+                  fontWeight: 'bold',
+                  py: 1.5,
+                  borderRadius: '8px',
+                  textTransform: 'none',
+                  '&:hover': {
+                    background: 'linear-gradient(90deg, #616161, #757575)',
+                  },
+                }}
+              >
+                Update Book
+              </Button>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Slide}
+      />
+    </Container>
   );
-}
+};
 
 export default UpdateBookInfo;

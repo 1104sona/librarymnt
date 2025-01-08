@@ -86,30 +86,6 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Button
-              component= "a"
-              href='https://github.com/1104sona/librarymnt'
-              to="/github-icon"
-              color="primary"
-              size="large"
-              fullWidth
-              variant="outlined"
-              sx={{
-                py: 1,
-                borderWidth: '2px',
-                borderColor: 'primary.main',
-                borderRadius: '8px',
-                fontWeight: 'bold',
-                '&:hover': {
-                  backgroundColor: 'primary.main',
-                  color: '#fff',
-                },
-              }}
-            >
-              GitHub
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
               component="a"
               href="https://docs.google.com/document/d/1yeICuOXo53lWL12QzrbZeTWO90BPCPmLdb3HVUaDbec/edit?tab=t.0"
               color="primary"
