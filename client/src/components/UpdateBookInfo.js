@@ -17,11 +17,11 @@ const UpdateBookInfo = () => {
     published_date: '',
     publisher: '',
   });
-  // const myURL = process.env.REACT_APP_URL;
+  const myURL = process.env.REACT_APP_URL;
 
   useEffect(() => {
     axios
-      .get(`https://library-management-h6hw.onrender.com/api/books/${id}`)
+      .get(`${URL}/api/books/${id}`)
       .then((res) => {
         setBook({
           title: res.data.title,
@@ -51,7 +51,7 @@ const UpdateBookInfo = () => {
     e.preventDefault();
 
     axios
-      .put(`https://library-management-h6hw.onrender.com/api/books/${id}`, book)
+      .put(`${URL}/api/books/${id}`, book)
       .then((res) => {
         toast.success('Book updated successfully!', {
           position: 'top-right',
