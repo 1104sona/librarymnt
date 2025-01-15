@@ -21,7 +21,7 @@ const Navbar = () => {
             }
           }}
         >
-          Book Management Project
+          Library Management System Project
         </Typography>
       </Toolbar>
     </AppBar>
