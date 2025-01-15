@@ -1,8 +1,67 @@
-import React from 'react';
+// src/components/HomePage.js
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Typography, Button, Box, Grid } from '@mui/material';
+import {
+  Container,
+  Typography,
+  Button,
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  Fade,
+  CircularProgress,
+  Divider
+} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import DownloadIcon from '@mui/icons-material/Download';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import PersonIcon from '@mui/icons-material/Person';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import QrCodeIcon from '@mui/icons-material/QrCode';
+import SearchIcon from '@mui/icons-material/Search';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import NotesIcon from '@mui/icons-material/Notes';
+import axios from 'axios';
 
 const HomePage = () => {
+  const [stats, setStats] = useState({
+    totalBooks: 0,
+    uniqueAuthors: 0,
+    recentBook: null
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    axios.get('/api/books')
+      .then(res => {
+        const books = res.data;
+        const uniqueAuthors = new Set(books.map(book => book.author)).size;
+        const recentBook = books.sort((a, b) =>
+          new Date(b.published_date) - new Date(a.published_date)
+        )[0];
+
+        setStats({
+          totalBooks: books.length,
+          uniqueAuthors,
+          recentBook
+        });
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error fetching stats:', err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="60vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
   return (
     <Container
       maxWidth="lg"
@@ -35,6 +94,50 @@ const HomePage = () => {
       >
         Manage your books efficiently and effectively.
       </Typography>
+      {/* Stats Cards */}
+      <Grid container spacing={4} mb={6}>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+              <CardContent sx={{ textAlign: 'center', width: '100%' }}>
+                <MenuBookIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
+                <Typography variant="h4" gutterBottom>
+                  {stats.totalBooks}
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  Total Books
+                </Typography>
+              </CardContent>
+            </Card>
+            </Grid>
+            <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+              <CardContent sx={{ textAlign: 'center', width: '100%' }}>
+                <PersonIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
+                <Typography variant="h4" gutterBottom>
+                  {stats.uniqueAuthors}
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  Unique Authors
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          
+          <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
+              <CardContent sx={{ textAlign: 'center', width: '100%' }}>
+                <CalendarTodayIcon color="primary" sx={{ fontSize: 40, mb: 2 }} />
+                <Typography variant="h4" gutterBottom>
+                  Latest Book
+                </Typography>
+                <Typography variant="subtitle1" color="text.secondary">
+                  {stats.recentBook?.title || 'No books yet'}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+          
       <Box mt={5}>
         <Grid container spacing={3} justifyContent="center">
           <Grid item xs={12} sm={6} md={4}>
