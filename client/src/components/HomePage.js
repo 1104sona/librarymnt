@@ -9,11 +9,8 @@ import {
   Grid,
   Card,
   CardContent,
-  Fade,
-  CircularProgress,
-  Divider
+  CircularProgress
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import DownloadIcon from '@mui/icons-material/Download';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -22,7 +19,8 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import SearchIcon from '@mui/icons-material/Search';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import NotesIcon from '@mui/icons-material/Notes';
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import ContactPageIcon from '@mui/icons-material/ContactPage';
 import axios from 'axios';
 
 const HomePage = () => {
@@ -148,6 +146,7 @@ const HomePage = () => {
               size="large"
               fullWidth
               variant="outlined"
+              startIcon={<LibraryBooksIcon />}
               sx={{
                 py: 1,
                 borderWidth: '2px',
@@ -165,6 +164,103 @@ const HomePage = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <Button
+              component={Link}
+              to="/search"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              startIcon={<SearchIcon />}
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+             Search Books 
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/export"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              startIcon={<DownloadIcon />}
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+              Export Data
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component={Link}
+              to="/qr-codes"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              startIcon={<QrCodeIcon />}
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+             QR Codes
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
+              component= "a"
+              href='https://github.com/1104sona/librarymnt'
+              to="/github"
+              color="primary"
+              size="large"
+              fullWidth
+              variant="outlined"
+              startIcon={<GitHubIcon />}
+              sx={{
+                py: 1,
+                borderWidth: '2px',
+                borderColor: 'primary.main',
+                borderRadius: '8px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  backgroundColor: 'primary.main',
+                  color: '#fff',
+                },
+              }}
+            >
+              GitHub
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <Button
               component= "a"
               href='https://docs.google.com/document/d/1ieXROySP4bB7bl0Wr0whB3P3Kzgb4F73k8W3vmxdGbs/edit?tab=t.0'
               to="/documentation"
@@ -172,6 +268,7 @@ const HomePage = () => {
               size="large"
               fullWidth
               variant="outlined"
+              startIcon={<InsertDriveFileIcon />}
               sx={{
                 py: 1,
                 borderWidth: '2px',
@@ -195,6 +292,7 @@ const HomePage = () => {
               size="large"
               fullWidth
               variant="outlined"
+              startIcon={<ContactPageIcon />}
               sx={{
                 py: 1,
                 borderWidth: '2px',
@@ -208,76 +306,6 @@ const HomePage = () => {
               }}
             >
               RESUME
-            </Button>
-          </Grid>
-         
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              component={Link}
-              to="/search"
-              color="primary"
-              size="large"
-              fullWidth
-              variant="outlined"
-              sx={{
-                py: 1,
-                borderWidth: '2px',
-                borderColor: 'primary.main',
-                borderRadius: '8px',
-                fontWeight: 'bold',
-                '&:hover': {
-                  backgroundColor: 'primary.main',
-                  color: '#fff',
-                },
-              }}
-            >
-             Search Books 
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              component={Link}
-              to="/qr-codes"
-              color="primary"
-              size="large"
-              fullWidth
-              variant="outlined"
-              sx={{
-                py: 1,
-                borderWidth: '2px',
-                borderColor: 'primary.main',
-                borderRadius: '8px',
-                fontWeight: 'bold',
-                '&:hover': {
-                  backgroundColor: 'primary.main',
-                  color: '#fff',
-                },
-              }}
-            >
-             QR Codes
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Button
-              component={Link}
-              to="/export"
-              color="primary"
-              size="large"
-              fullWidth
-              variant="outlined"
-              sx={{
-                py: 1,
-                borderWidth: '2px',
-                borderColor: 'primary.main',
-                borderRadius: '8px',
-                fontWeight: 'bold',
-                '&:hover': {
-                  backgroundColor: 'primary.main',
-                  color: '#fff',
-                },
-              }}
-            >
-              Export Data
             </Button>
           </Grid>
         </Grid>
